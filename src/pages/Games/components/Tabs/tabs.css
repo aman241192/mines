@@ -1,0 +1,23 @@
+.tabsBtn{
+  display: inline-block;
+  position: relative;
+  padding-bottom: 4px;
+  background-image: linear-gradient(90deg, rgb(36, 238, 137), rgb(159, 232, 113));
+  background-repeat: no-repeat;
+  background-size: 100% 1px;
+  background-position: 0 100%;
+}
+
+
+.tabsBtnbor{
+  /* /* display: inline-block; */
+  position: relative;
+  padding-bottom: 4px;
+  /* background-image: #b3bec1; */
+  background-image: linear-gradient(90deg, #b3bec1, #8f9b9e);
+
+  background-repeat: no-repeat;
+  background-size: 100% 1px;
+  background-position: 0 100%; 
+  /* border-bottom: #b3bec1; */
+}

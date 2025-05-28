@@ -1,0 +1,93 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'MyFont';
+  src: url('./assets//fonts//AvertaStd.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+}
+
+*{
+    font-family: 'MyFont'
+}
+body{
+ background: #232626
+}
+
+.font{
+  font-family: 'MyFont'
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+
+ .gradient-button {
+      padding: 12px 24px;
+      font-size: 14px;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+      background: linear-gradient(90deg, rgb(36, 238, 137), rgb(159, 232, 113));
+    }
+
+    .gradient-button:hover {
+      transform: scale(1.05);
+    }
+
+    .gradient-button:active {
+      transform: scale(0.98);
+    }
+
+
+
+    .pickaTitle{
+      padding: 12px 24px;
+      font-size: 14px;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer; 
+    }
+
+    .cashOutBtn{
+      background:   linear-gradient(270deg, rgb(251, 215, 101) 0%, rgb(239, 158, 63) 100%);
+      box-shadow: rgba(255, 187, 0, 0.5) 0px 0px 10px 0px;
+    }
+
+
+    /* ///////////////////////////// */
+
+    .square-item{
+    width: 90px;
+    height: 90px;
+    background: rebeccapurple;
+}
+
+.square-item:hover{
+    transform: translateY(-5px);
+    cursor: pointer;
+}
+
+.d-grid{
+  display: grid;
+  grid-template-columns: repeat(5, 90px);
+  row-gap: 10px;
+  column-gap: 10px;
+}
+
+.blur-sm {
+  filter: blur(4px);
+}
+

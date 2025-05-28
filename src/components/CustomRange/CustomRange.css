@@ -1,0 +1,31 @@
+/* slider.css */
+.ant-slider-handle {
+  box-shadow: none !important;
+}
+
+
+.rangeBox {
+    margin: -7px 5px auto !important;
+}
+
+.rangeBox .ant-slider-handle:hover::after{
+    box-shadow: none !important;
+    outline: none !important;
+    margin-left: 2px;
+}
+
+.rangeBox .ant-slider .ant-slider-handle:focus{
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+
+.rangeBox .ant-slider-handle::after{
+    border:none;
+    box-shadow: none;  
+    pointer-events: none;
+    opacity: 0;
+}
+.rangeBox .ant-slider-handle::after:hover{
+    box-shadow: none;  
+}
