@@ -65,7 +65,6 @@ const Footer = ({ expand, setExpand }) => {
       setIsPlaying(!isPlaying);
     }
 
-    debugger;
     setData((prev) =>
       prev.map((item, i) =>
         i === index ? { ...item, isActive: !item.isActive } : item
