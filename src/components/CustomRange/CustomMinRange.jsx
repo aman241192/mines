@@ -1,12 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Slider } from "antd";
 import "./CustomRange.css";
-const CustomMinRange = () => {
-  const [value, setValue] = useState(12);
+const CustomMinRange = ({ countMines, setAmt, amt }) => {
+  const [value, setValue] = useState(1);
+
+  console.log("value", value);
+
+  useEffect(() => {
+    setValue(countMines);
+  }, [countMines]);
 
   return (
     <>
-      <div className="w-full flex justify-between items-center  bg-[#1d1f20] px-[ 5px] rounded-md mt-[8px] pr-3 mb-4 gap-1">
+      <div className="w-full flex justify-between items-center  bg-[#292D2E] px-[ 5px] rounded-md mt-[8px] pr-3 mb-4 gap-1">
         <span className="bg-primary w-[48px] px-2 py-[11px] text-white rounded-l-md">
           Min
         </span>
@@ -14,11 +20,12 @@ const CustomMinRange = () => {
         <div className="w-full max-w-[280px]">
           <Slider
             className="rangeBox"
-            value={value}
-            onChange={setValue}
+            value={amt}
+            onChange={setAmt}
             tooltip={{ open: false }} // Hide tooltip
             min={0}
-            max={24}
+            max={1}
+            step={0.01} // Allows decimal steps
             trackStyle={{
               background:
                 "linear-gradient(90deg, rgb(36, 238, 137), rgb(159, 232, 113))",

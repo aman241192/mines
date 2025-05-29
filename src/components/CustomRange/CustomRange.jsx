@@ -1,13 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Slider } from "antd";
 import "./CustomRange.css";
 import CutomText from "../CutomText/CutomText";
 import { setMinesAction } from "../../Slice/counterSlice";
-import { useDispatch } from "react-redux";
-const CustomRange = ({ title }) => {
+import { useDispatch, useSelector } from "react-redux";
+const CustomRange = ({ title, countMines, disabled }) => {
   const dispatch = useDispatch();
 
+  const { totalMoves, totalScore, start } = useSelector(
+    (state) => state?.counter
+  );
+
   const [value, setValue] = useState(1);
+
+  useEffect(() => {
+    setValue(countMines);
+  }, [countMines]);
 
   const handleChange = (e) => {
     setValue(e);
@@ -17,11 +25,15 @@ const CustomRange = ({ title }) => {
   return (
     <>
       <CutomText title={title} />
-      <div className="w-full flex justify-between items-center  bg-[#1d1f20] py-[11px] px-[5px] rounded-md mt-[8px] mb-4">
+      <div
+        className={`w-full flex justify-between items-center ${
+          !start ? "bg-[#292D2E]" : "bg-[#2e3334]"
+        } py-[11px] px-[5px] rounded-md mt-[8px] mb-4`}
+      >
         <span className="text-sm text-white w-6 text-center">{value}</span>
-
         <div className="w-full max-w-[280px]">
           <Slider
+            // disabled={start}
             className="rangeBox"
             value={value}
             onChange={(e) => handleChange(e)}
