@@ -2,10 +2,13 @@ import React, { useState } from "react";
 import Tabs from "./components/Tabs/Tabs";
 import MinesGame from "./components/Mines/MinesGame";
 import "./games.css";
+import Footer from "../../components/Footer/Footer";
 
 const Games = () => {
   const [gameStarted, setGameStarted] = useState(false);
   const [restartTrigger, setRestartTrigger] = useState(0); // forces MinesGame re-render
+
+  const [expand, setExpand] = useState(false);
 
   const handleBetClick = () => {
     setGameStarted(true);
@@ -59,10 +62,19 @@ const Games = () => {
   }
 
   return (
-    <div className="flex justify-baseline rounded-md overflow-hidden  max-w-[1200px] w-full m-auto mt-3">
-      <Tabs />
-      {/* <MinesGame /> */}
-      <MinesGame key={restartTrigger} onGameOver={handleGameOver} />
+    <div className="p-[20px] m-auto">
+      <div
+        className={`${
+          expand ? "max-w-[100%]" : "max-w-[1200px]"
+        }  w-full m-auto mt-3 rounded-lg overflow-hidden`}
+      >
+        {/* <div className="flex justify-baseline   "> */}
+        <div className="flex flex-col-reverse custom992:flex-row justify-baseline">
+          <Tabs />
+          <MinesGame key={restartTrigger} onGameOver={handleGameOver} />
+        </div>
+        <Footer expand={expand} setExpand={setExpand} />
+      </div>
     </div>
   );
 };
