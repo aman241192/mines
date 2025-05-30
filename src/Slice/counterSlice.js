@@ -8,6 +8,8 @@ const initialState = {
   value: 0,
   totalScore: 0,
   isSound: true,
+  gameOver: false,
+  setGame: "",
 };
 
 export const counterSlice = createSlice({
@@ -16,6 +18,9 @@ export const counterSlice = createSlice({
   reducers: {
     startGameAction: (state, action) => {
       state.start = action?.payload;
+    },
+    gameOverAction: (state, action) => {
+      state.gameOver = action?.payload;
     },
 
     autoPlayAction: (state, action) => {
@@ -35,6 +40,9 @@ export const counterSlice = createSlice({
     isSoundAction: (state, action) => {
       state.isSound = action?.payload;
     },
+    isSetGameAction: (state, action) => {
+      state.setGame = action?.payload;
+    },
   },
 });
 
@@ -46,6 +54,8 @@ export const {
   totalScoreAction,
   countMovesAction,
   isSoundAction,
+  gameOverAction,
+  isSetGameAction,
 } = counterSlice.actions;
 
 export default counterSlice.reducer;

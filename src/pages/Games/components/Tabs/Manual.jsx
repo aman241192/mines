@@ -21,7 +21,7 @@ const Manual = () => {
   const amtArr = ["10", "100", "1.0k", "10.0k"];
   const dispatch = useDispatch();
 
-  const { totalMoves, totalScore, start, countMines } = useSelector(
+  const { totalMoves, totalScore, start, gameOver, countMines } = useSelector(
     (state) => state?.counter
   );
 
@@ -45,6 +45,7 @@ const Manual = () => {
 
   const handleInputChnage = (e) => {
     const { value } = e.target;
+
     let checkNumber = isNaN(value);
     let num = Number(value);
 
@@ -74,6 +75,10 @@ const Manual = () => {
     }
   };
 
+  const handleToggle = () => {
+    setToggle((prev) => !prev);
+  };
+
   return (
     <div className="px-[12px] pt-[20px] pb-[12px]">
       <div className="flex items-center gap-2 mb-[4px]">
@@ -82,64 +87,17 @@ const Manual = () => {
       </div>
 
       {/* Input Fields */}
-      <div
-        className={`${
-          !start ? "bg-[#292D2E]" : "bg-[#2e3334] pointer-events-none"
-        } w-full flex items-center justify-between p-1 pl-3 rounded-md`}
-      >
-        <div className="flex items-center justify-between">
-          <div className="w-[20px]">
-            <img src={INR} alt="" />
-          </div>
-          <div className="ml-[10px]">
-            <input
-              disabled={start}
-              className="bg-transparent w-full focus:outline-none text-white font-semibold"
-              value={amt}
-              type="number"
-              onChange={(e) => handleInputChnage(e)}
-              onBlur={() => {
-                amt == "" && setAmt(0);
-              }}
-            />
-          </div>
-        </div>
-
-        <div className="flex justify-center gap-[4px]">
-          <button
-            className="bg-primary w-[48px] px-2 rounded text-white text-[14px] font-semibold"
-            onClick={handleDivideAmt}
-          >
-            1/2
-          </button>
-          <div className="flex-1 flex justify-center">
-            <button
-              className="bg-primary w-[48px] px-2 rounded text-white text-[14px] font-semibold"
-              onClick={handleDoubleAmt}
-            >
-              2x
-            </button>
-          </div>
-          <div
-            className="bg-primary w-[48px] px-2  rounded flex items-center flex-col text-white cursor-pointer"
-            onClick={() => setToggle((prev) => !prev)}
-          >
-            <IoIosArrowUp className="font-semibold" />
-            <IoIosArrowDown className="font-semibold" />
-          </div>
-        </div>
-      </div>
-
-      {/* <AmountInputField
+      <AmountInputField
+        id="mannual"
         img={INR}
         amt={amt}
         setAmt={setAmt}
         start={false}
         onChange={handleInputChnage}
-        onClickOne={handleDivide}
-        onClickTwo={handleDouble}
+        onClickOne={handleDivideAmt}
+        onClickTwo={handleDoubleAmt}
         onClickThree={handleToggle}
-      /> */}
+      />
 
       {toggle ? (
         <div className="mt-[3px]">

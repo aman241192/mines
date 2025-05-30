@@ -23,9 +23,7 @@ import Help from "../../../../assets/images/Help";
 const amtArr = ["10", "100", "1.0k", "10.0k"];
 
 const Auto = () => {
-  const amtArr = ["10", "100", "1.0k", "10.0k"];
   const dispatch = useDispatch();
-
   const { totalMoves, totalScore, start, countMines } = useSelector(
     (state) => state?.counter
   );
@@ -33,6 +31,7 @@ const Auto = () => {
   const [amt, setAmt] = useState(0);
   const [toggle, setToggle] = useState(false);
   const [gameStart, setGameStart] = useState(false);
+  const [betsNo, setBetsNo] = useState(null);
 
   useEffect(() => {
     setGameStart(start);
@@ -54,7 +53,7 @@ const Auto = () => {
     let num = Number(value);
 
     if (!checkNumber) {
-      if (value == "") {
+      if (value === "") {
         setAmt("");
       } else if (num < 1) {
         setAmt(num);
@@ -79,9 +78,21 @@ const Auto = () => {
     }
   };
 
-  const handleDivide = () => setAmt((prev) => Math.floor(prev / 2));
-  const handleDouble = () => setAmt((prev) => prev * 2);
-  const handleToggle = () => setToggle((prev) => !prev);
+  const handleToggle = () => {
+    setToggle((prev) => !prev);
+  };
+
+  const handleResetBets = () => {
+    setToggle((prev) => !prev);
+  };
+
+  const handleSetBetTen = () => {
+    setBetsNo(10);
+  };
+
+  const handleSetBetHund = () => {
+    setBetsNo(100);
+  };
 
   return (
     <div>
@@ -91,54 +102,18 @@ const Auto = () => {
           <Info className="text-[#24ee89]" />
         </div>
 
-        {/* Input Fields */}
-        <div
-          className={`${
-            !start ? "bg-[#292D2E]" : "bg-[#2e3334] pointer-events-none"
-          } w-full flex items-center justify-between p-1 pl-3 rounded-md`}
-        >
-          <div className="flex items-center justify-between">
-            <div className="w-[20px]">
-              <img src={INR} alt="" />
-            </div>
-            <div className="ml-[10px]">
-              <input
-                disabled={start}
-                className="bg-transparent w-full focus:outline-none text-white font-semibold"
-                value={amt}
-                type="number"
-                onChange={(e) => handleInputChnage(e)}
-                onBlur={() => {
-                  amt == "" && setAmt(0);
-                }}
-              />
-            </div>
-          </div>
-
-          <div className="flex justify-center gap-[4px]">
-            <button
-              className="bg-primary w-[48px] px-2 rounded text-white text-[14px] font-semibold"
-              onClick={handleDivideAmt}
-            >
-              1/2
-            </button>
-            <div className="flex-1 flex justify-center">
-              <button
-                className="bg-primary w-[48px] px-2 rounded text-white text-[14px] font-semibold"
-                onClick={handleDoubleAmt}
-              >
-                2x
-              </button>
-            </div>
-            <div
-              className="bg-primary w-[48px] px-2  rounded flex items-center flex-col text-white cursor-pointer"
-              onClick={() => setToggle((prev) => !prev)}
-            >
-              <IoIosArrowUp className="font-semibold" />
-              <IoIosArrowDown className="font-semibold" />
-            </div>
-          </div>
-        </div>
+        {/* Manual Amount Input */}
+        <AmountInputField
+          id="mannual"
+          img={INR}
+          amt={amt}
+          setAmt={setAmt}
+          start={false}
+          onChange={handleInputChnage}
+          onClickOne={handleDivideAmt}
+          onClickTwo={handleDoubleAmt}
+          onClickThree={handleToggle}
+        />
 
         {toggle ? (
           <div className="mt-[3px]">
@@ -146,7 +121,7 @@ const Auto = () => {
           </div>
         ) : (
           <div className="flex justify-between items-center mb-[10px]">
-            {amtArr?.map((item, index) => (
+            {amtArr.map((item, index) => (
               <span
                 key={index}
                 className="w-[77px] rounded-md text-lightGray text-[14px] text-center mt-1 p-[5px] block bg-[#3a4142] font-semibold cursor-not-allowed"
@@ -159,88 +134,35 @@ const Auto = () => {
 
         <CustomRange title={"Mines"} countMines={countMines} />
 
-        {/* Number of bets */}
-        {/* <div
-        className={`${
-          !start ? "bg-[#292D2E]" : "bg-[#2e3334] pointer-events-none"
-        } w-full flex items-center justify-between p-1 pl-3 rounded-md`}
-      >
-        <div className="flex items-center justify-between">
-          <IoMdInfinite className="text-white" />
-
-          <div className="ml-[10px]">
-            <input
-              disabled={start}
-              className="bg-transparent w-full focus:outline-none text-white font-semibold"
-              value={amt}
-              type="number"
-              onChange={(e) => handleInputChnage(e)}
-              onBlur={() => {
-                amt == "" && setAmt(0);
-              }}
-            />
-          </div>
-        </div>
-
-        <div className="flex justify-center gap-[4px]">
-          <button
-            className="bg-primary w-[48px] px-2 rounded text-white text-[14px] font-semibold"
-            onClick={handleDivideAmt}
-          >
-            <IoMdInfinite />
-          </button>
-          <div className="flex-1 flex justify-center">
-            <button
-              className="bg-primary w-[48px] px-2 rounded text-white text-[14px] font-semibold"
-              onClick={handleDoubleAmt}
-            >
-              10
-            </button>
-          </div>
-          <div
-            className="bg-primary w-[48px] px-2  rounded flex items-center flex-col text-white cursor-pointer"
-            onClick={() => setToggle((prev) => !prev)}
-          >
-            100
-          </div>
-        </div>
-      </div> */}
+        {/* Number of Bets Input */}
         <AmountInputField
           id="auto"
           img={<IoMdInfinite className="text-white m-auto" />}
           title={"Number of Bets"}
-          amt={amt}
-          setAmt={setAmt}
+          amt={betsNo}
+          setAmt={setBetsNo}
           start={false}
-          onDivide={handleDivide}
-          onDouble={handleDouble}
-          onToggle={handleToggle}
+          onClickOne={handleResetBets}
+          onClickTwo={handleSetBetTen}
+          onClickThree={handleSetBetHund}
+          onChange={(e) => setBetsNo(e.target.value)}
         />
 
-        {/* On Win */}
+        {/* On Win/Loss */}
         <OnWin title="On Win" />
         <OnWin title="On Loss" />
 
         <div className="mt-[10px]">
           <div className="mb-[10px]">
-            <CustomInput
-              name={"Stop on win"}
-              title={"Stop on win"}
-              // value={start ? totalMoves : null}
-            />
+            <CustomInput name={"Stop on win"} title={"Stop on win"} />
           </div>
-          <CustomInput
-            name={"Stop on loss"}
-            title={"Stop on loss"}
-            // value={totalScore > 100 ? totalScore : ""}
-          />
+          <CustomInput name={"Stop on loss"} title={"Stop on loss"} />
         </div>
 
         <div className="flex mt-3">
           <div className="w-[24px]">
             <Help fill="#b3bec1" />
           </div>
-
           <p className="text-[#b3bec1] ml-2 text-[14px] mb-3">
             Use of script is optional and players must take full responsibility
             for any attendant risks. We will not be held liable in this regard.

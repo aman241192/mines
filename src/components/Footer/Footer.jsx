@@ -110,19 +110,6 @@ const Footer = ({ expand, setExpand }) => {
 
       <div className="flex gap-5">
         {data.map((item, index) => {
-          // const IconComponent =
-          //   item.key === "music"
-          //     ? !isPlaying
-          //       ? MusicIconMute
-          //       : MusicIcon
-          //     : item.icon;
-
-          // item.key === "sound"
-          //   ? !activeSound
-          //     ? SoundIcon
-          //     : SountMuteIcon
-          //   : item.icon;
-
           let IconComponent = item.icon;
 
           // Override icon conditionally
