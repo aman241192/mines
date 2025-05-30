@@ -9,7 +9,7 @@ const LiveStatus = ({ fill }) => {
         width="32"
         height="32"
         fill="none"
-        class="transition-transform duration-300 hover:scale-125 size-6"
+        className="transition-transform duration-300 hover:scale-125 size-6"
       >
         {" "}
         <path

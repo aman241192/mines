@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import Manual from "./Manual";
 import Auto from "./Auto";
 import "./tabs.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { startGameAction } from "../../../../Slice/counterSlice";
 
 const Tabs = () => {
   const tabsData = [
@@ -10,11 +11,13 @@ const Tabs = () => {
     { title: "Auto", component: Auto },
   ];
 
+  const dispatch = useDispatch();
   const { start, value, countMines } = useSelector((state) => state.counter);
 
   const [activeTab, setActiveTab] = useState(0);
 
   const handleChangeTabs = (index) => {
+    dispatch(startGameAction(true));
     setActiveTab(index);
   };
 

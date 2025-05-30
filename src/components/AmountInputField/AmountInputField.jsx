@@ -18,7 +18,6 @@ const AmountInputField = ({
     (state) => state?.counter
   );
 
-  console.log("img", img);
   return (
     <div>
       <CutomText title={title} />

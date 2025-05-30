@@ -9,7 +9,7 @@ const HotKey = ({ fill }) => {
         width="32"
         height="32"
         fill="none"
-        class="size-6 transition-transform duration-300 hover:scale-125 "
+        className="size-6 transition-transform duration-300 hover:scale-125 "
       >
         {" "}
         <path

@@ -188,7 +188,7 @@ const Manual = () => {
         <span>Betting with $0 will enter demo mode.</span>
       </div>
 
-      {gameStart && (
+      {gameStart && totalMoves && (
         <div className="mt-[10px]">
           <CustomInput
             name={"gems"}
@@ -197,8 +197,9 @@ const Manual = () => {
           />
           <CustomInput
             name={"totalProfit"}
-            title={"Total profit (1.09x)"}
-            value={totalScore > 100 ? totalScore : ""}
+            title={`Total profit ${totalScore}x`}
+            // value={totalScore > 100 ? totalScore : ""}
+            value={0}
           />
         </div>
       )}

@@ -4,8 +4,6 @@ import "./CustomRange.css";
 const CustomMinRange = ({ countMines, setAmt, amt }) => {
   const [value, setValue] = useState(1);
 
-  console.log("value", value);
-
   useEffect(() => {
     setValue(countMines);
   }, [countMines]);

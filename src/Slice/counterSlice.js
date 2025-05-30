@@ -7,6 +7,7 @@ const initialState = {
   start: false,
   value: 0,
   totalScore: 0,
+  isSound: true,
 };
 
 export const counterSlice = createSlice({
@@ -31,6 +32,9 @@ export const counterSlice = createSlice({
     countMovesAction: (state, action) => {
       state.totalMoves = action?.payload;
     },
+    isSoundAction: (state, action) => {
+      state.isSound = action?.payload;
+    },
   },
 });
 
@@ -41,6 +45,7 @@ export const {
   autoPlayAction,
   totalScoreAction,
   countMovesAction,
+  isSoundAction,
 } = counterSlice.actions;
 
 export default counterSlice.reducer;

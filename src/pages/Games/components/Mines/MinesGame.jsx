@@ -11,7 +11,6 @@ import CustomModal from "../../../../components/CustomModal/CustomModal";
 import INR from "../../../../assets/images/INR.webp";
 
 const BOARD_SIZE = 25;
-let dataArr = ["0x", "0x"];
 
 export default function MinesGame({ onGameOver }) {
   const dispatch = useDispatch();
@@ -23,12 +22,19 @@ export default function MinesGame({ onGameOver }) {
   const [gameOver, setGameOver] = useState(false);
   const [isWin, setIsWin] = useState(false);
   const [score, setScore] = useState(0);
-  const [movesLeft, setMovesLeft] = useState(BOARD_SIZE);
+  const [movesLeft, setMovesLeft] = useState(BOARD_SIZE - 1);
   const [mineSeed, setMineSeed] = useState(Date.now());
   const [revealedSquares, setRevealedSquares] = useState(
     Array(BOARD_SIZE).fill(false)
   );
   const [clickedMineIdx, setClickedMineIdx] = useState(null);
+
+  const [lastNumber, setLastNumber] = useState(1.0);
+
+  const [dataArr, setDataArr] = useState([
+    { score: 0, isActive: false },
+    { score: 0, isActive: false },
+  ]);
 
   const revealBoard = gameOver || movesLeft === 0;
 
@@ -37,6 +43,7 @@ export default function MinesGame({ onGameOver }) {
       setTimeout(() => {
         setIsWin(false);
       }, 3000);
+      setDataArr([...dataArr, { score: lastNumber, isActive: true }]);
     }
   }, [isWin]);
 
@@ -65,7 +72,7 @@ export default function MinesGame({ onGameOver }) {
     setGameOver(false);
     setIsWin(false);
     setScore(100);
-    setMovesLeft(BOARD_SIZE);
+    setMovesLeft(BOARD_SIZE - 1);
     setMineSeed(Date.now());
     setRevealedSquares(Array(BOARD_SIZE).fill(false));
     setClickedMineIdx(null);
@@ -111,7 +118,17 @@ export default function MinesGame({ onGameOver }) {
     return [...positions];
   }, [mineSeed, countMines]);
 
-  console.log("minesPositions", minesPositions);
+  function generateNextNumber() {
+    // Generate a number greater than lastNumber, up to 2 decimal places
+    const min = lastNumber + 0.01;
+    const max = min + 0.04; // you can increase this range if needed
+
+    const randomDecimal = Math.random() * (max - min) + min;
+    const nextNumber = Number(randomDecimal.toFixed(2));
+
+    setLastNumber(nextNumber);
+    // lastNumber = nextNumber;
+  }
 
   const handleSquareClick = (idx) => {
     if (!gameStarted || revealedSquares[idx] || gameOver) return;
@@ -137,7 +154,8 @@ export default function MinesGame({ onGameOver }) {
       setClickedMineIdx(idx);
       setGameOver(true);
     } else {
-      setScore((prev) => prev * 2);
+      generateNextNumber();
+      setScore(lastNumber);
     }
   };
 
@@ -161,13 +179,17 @@ export default function MinesGame({ onGameOver }) {
   return (
     <div className="starsOut w-full">
       <div className="minesGameContainer text-center ">
-        <div className="flex justify-start gap-4 mt-[10px]">
+        <div className="flex justify-start gap-4 mt-[10px] pl-4 max-w-[820px] w-full overflow-auto hide-scrollbar">
           {dataArr?.map((item, index) => (
             <span
               key={index}
-              className="bg-[#4e5758] w-[80px] text-[14px] text-[#B3BEC1] p-[10px] rounded-md text-center font-semibold"
+              className={`${
+                item.isActive
+                  ? "bg-[#1AA964] text-[#ffffff]"
+                  : "bg-[#4e5758] text-[#B3BEC1]"
+              }  min-w-[80px] text-[14px]  p-[10px] rounded-md text-center font-semibold`}
             >
-              {item}
+              {item.score}x
             </span>
           ))}
         </div>
@@ -196,7 +218,7 @@ export default function MinesGame({ onGameOver }) {
         children={
           <div>
             <h6 className="text-[20px] font-bold text-[#24EE89] text-center">
-              1.14x
+              {totalScore}x
             </h6>
 
             <div className="flex justify-center gap-2 items-center text-[20px] font-bold text-white rounded-md bg-[#4A5354] text-center">

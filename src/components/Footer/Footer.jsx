@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { FaStar, FaHeart } from "react-icons/fa6";
 import { BsFillSendFill } from "react-icons/bs";
 
@@ -14,12 +14,20 @@ import Help from "../../assets/images/Help";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 
 import oceanWaves from "../../assets/sounds/oceanWaves.mp3";
+import { isSoundAction } from "../../Slice/counterSlice";
+import { useDispatch } from "react-redux";
+import SountMuteIcon from "../../assets/images/SountMuteIcon";
 
 const Footer = ({ expand, setExpand }) => {
+  const dispatch = useDispatch();
   const audioRef = useRef(new Audio(oceanWaves));
-  const [isPlaying, setIsPlaying] = useState(false);
 
-  console.log("isPlaying", isPlaying);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [activeSound, setActiveSound] = useState(true);
+
+  useEffect(() => {
+    dispatch(isSoundAction(activeSound));
+  }, [activeSound]);
 
   const [data, setData] = useState([
     {
@@ -36,7 +44,6 @@ const Footer = ({ expand, setExpand }) => {
       title: "Music",
       isActive: false,
     },
-    // { id: "2", key: "music", icon: MusicIcon, title: "Music", isActive: false },
 
     { id: "3", key: "sound", icon: SoundIcon, title: "Sound", isActive: false },
     { id: "4", key: "hotKey", icon: HotKey, title: "Hot Key", isActive: false },
@@ -63,6 +70,8 @@ const Footer = ({ expand, setExpand }) => {
         audio.currentTime = 0; // reset to start
       }
       setIsPlaying(!isPlaying);
+    } else if (item.id == 3) {
+      setActiveSound(!activeSound);
     }
 
     setData((prev) =>
@@ -101,12 +110,27 @@ const Footer = ({ expand, setExpand }) => {
 
       <div className="flex gap-5">
         {data.map((item, index) => {
-          const IconComponent =
-            item.key === "music"
-              ? !isPlaying
-                ? MusicIconMute
-                : MusicIcon
-              : item.icon;
+          // const IconComponent =
+          //   item.key === "music"
+          //     ? !isPlaying
+          //       ? MusicIconMute
+          //       : MusicIcon
+          //     : item.icon;
+
+          // item.key === "sound"
+          //   ? !activeSound
+          //     ? SoundIcon
+          //     : SountMuteIcon
+          //   : item.icon;
+
+          let IconComponent = item.icon;
+
+          // Override icon conditionally
+          if (item.key === "music") {
+            IconComponent = isPlaying ? MusicIcon : MusicIconMute;
+          } else if (item.key === "sound") {
+            IconComponent = activeSound ? SoundIcon : SountMuteIcon;
+          }
 
           const isActive = item.isActive;
           const fillColor = isActive ? "#24EE89" : "#B3BEC1";

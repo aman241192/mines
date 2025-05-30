@@ -7,7 +7,7 @@ const MusicIconMute = ({ fill }) => (
     width="32"
     height="32"
     fill={"none"}
-    class="size-6 transition-transform duration-300"
+    className="size-6 transition-transform duration-300"
   >
     {" "}
     <path

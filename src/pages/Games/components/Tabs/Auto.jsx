@@ -264,32 +264,14 @@ const Auto = () => {
       </div>
 
       <div className="px-[12px]">
-        {!gameStart ? (
-          <button
-            className="w-full gradient-button"
-            onClick={hadleStartGame}
-            disabled={true}
-          >
-            Start Auto Bet
-          </button>
-        ) : (
-          <div>
-            <button
-              className="w-full pickaTitle bg-gray3 text-white flex justify-center items-center gap-2"
-              onClick={handleAutoPlay}
-            >
-              <ImMagicWand />
-              Pick a Title Randomly
-            </button>
-            <button className="w-full pickaTitle cashOutBtn bg-gray3 text-white flex justify-center items-center gap-2 mt-3">
-              Cash out
-              <div className="w-[20px]">
-                <img src={INR} alt="" />
-              </div>
-              Rs 0.00
-            </button>
-          </div>
-        )}
+        <button
+          className="w-full gradient-button"
+          onClick={hadleStartGame}
+          disabled={true}
+        >
+          Start Auto Bet
+        </button>
+
         <div className="text-gray-300 text-sm px-3 py-1 rounded-md flex items-center gap-2 bg-[#24ee891a] mt-[5px]  justify-center">
           <AiOutlineInfoCircle className="w-5 h-5 text-gray-300" />
           <span>Betting with $0 will enter demo mode.</span>

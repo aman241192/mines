@@ -68,7 +68,6 @@ const Games = () => {
           expand ? "max-w-[100%]" : "max-w-[1200px]"
         }  w-full m-auto mt-3 rounded-lg overflow-hidden`}
       >
-        {/* <div className="flex justify-baseline   "> */}
         <div className="flex flex-col-reverse custom992:flex-row justify-baseline">
           <Tabs />
           <MinesGame key={restartTrigger} onGameOver={handleGameOver} />
