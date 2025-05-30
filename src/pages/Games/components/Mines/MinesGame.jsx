@@ -3,6 +3,7 @@ import Square from "./Square/Square";
 import { useDispatch, useSelector } from "react-redux";
 import {
   countMovesAction,
+  gameOverAction,
   startGameAction,
   totalScoreAction,
 } from "../../../../Slice/counterSlice";
@@ -14,7 +15,7 @@ const BOARD_SIZE = 25;
 
 export default function MinesGame({ onGameOver }) {
   const dispatch = useDispatch();
-  const { start, value, countMines, totalScore } = useSelector(
+  const { start, value, countMines, totalScore, setGame } = useSelector(
     (state) => state.counter
   );
 
@@ -35,6 +36,10 @@ export default function MinesGame({ onGameOver }) {
     { score: 0, isActive: false },
     { score: 0, isActive: false },
   ]);
+
+  useEffect(() => {
+    dispatch(gameOverAction(gameOver));
+  }, [gameOver]);
 
   const revealBoard = gameOver || movesLeft === 0;
 
@@ -99,6 +104,12 @@ export default function MinesGame({ onGameOver }) {
   }, [start]);
 
   useEffect(() => {
+    if (setGame !== "") {
+      startGame();
+    }
+  }, [setGame]);
+
+  useEffect(() => {
     if (value) {
       autoPlayMove();
     }
@@ -119,15 +130,12 @@ export default function MinesGame({ onGameOver }) {
   }, [mineSeed, countMines]);
 
   function generateNextNumber() {
-    // Generate a number greater than lastNumber, up to 2 decimal places
     const min = lastNumber + 0.01;
-    const max = min + 0.04; // you can increase this range if needed
+    const max = min + 0.04;
 
     const randomDecimal = Math.random() * (max - min) + min;
     const nextNumber = Number(randomDecimal.toFixed(2));
-
     setLastNumber(nextNumber);
-    // lastNumber = nextNumber;
   }
 
   const handleSquareClick = (idx) => {
@@ -204,8 +212,6 @@ export default function MinesGame({ onGameOver }) {
               >
                 {squares}
               </div>
-              {/* {isWin && alert("OK")} */}
-              {/* {isWin && setOpen(true)} */}
             </div>
           </div>
         </div>

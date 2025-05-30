@@ -14,9 +14,7 @@ const AmountInputField = ({
   title,
   id,
 }) => {
-  const { totalMoves, totalScore, start, countMines } = useSelector(
-    (state) => state?.counter
-  );
+  const { start } = useSelector((state) => state?.counter);
 
   return (
     <div>
@@ -28,7 +26,7 @@ const AmountInputField = ({
       >
         <div className="flex items-center justify-between">
           <div className="w-[20px]">
-            {img !== "" ? img : <img src={img} alt="" />}
+            {typeof img !== "string" ? img : <img src={img} alt="" />}
           </div>
           <div className="ml-[10px]">
             <input
@@ -36,10 +34,9 @@ const AmountInputField = ({
               className="bg-transparent w-full focus:outline-none text-white font-semibold"
               value={amt}
               type="number"
-              //   onChange={(e) => handleInputChnage(e)}
               onChange={onChange}
               onBlur={() => {
-                amt == "" && setAmt(0);
+                amt === "" && setAmt(0);
               }}
             />
           </div>
@@ -50,32 +47,27 @@ const AmountInputField = ({
             className="bg-primary w-[48px] h-[32px] px-2 rounded text-white text-[14px] font-semibold"
             onClick={onClickOne}
           >
-            {!id == "auto" ? "1/2" : img}
+            {id === "mannual" ? "1/2" : img}
           </button>
-          <div className="flex-1 flex justify-center">
-            <button
-              className="bg-primary w-[48px] h-[32px] m-auto px-2 rounded text-white text-[14px] font-semibold"
-              onClick={onClickTwo}
-            >
-              {!id == "auto" ? "2x" : "10"}
-            </button>
-          </div>
-
-          <div className="flex-1 flex justify-center">
-            <button
-              className="bg-primary w-[48px] h-[32px] m-auto px-2 rounded text-white text-[14px] font-semibold"
-              onClick={onClickTwo}
-            >
-              {!id == "auto" ? (
-                <>
-                  <IoIosArrowUp className="font-semibold" />
-                  <IoIosArrowDown className="font-semibold" />
-                </>
-              ) : (
-                "100"
-              )}
-            </button>
-          </div>
+          <button
+            className="bg-primary w-[48px] h-[32px] px-2 rounded text-white text-[14px] font-semibold"
+            onClick={onClickTwo}
+          >
+            {id === "mannual" ? "2x" : "10"}
+          </button>
+          <button
+            className="bg-primary w-[48px] h-[32px] px-2 rounded text-white text-[14px] font-semibold"
+            onClick={onClickThree}
+          >
+            {id === "mannual" ? (
+              <>
+                <IoIosArrowUp className="font-semibold" />
+                <IoIosArrowDown className="font-semibold" />
+              </>
+            ) : (
+              "100"
+            )}
+          </button>
         </div>
       </div>
     </div>

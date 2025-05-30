@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Manual from "./Manual";
 import Auto from "./Auto";
 import "./tabs.css";
 import { useDispatch, useSelector } from "react-redux";
-import { startGameAction } from "../../../../Slice/counterSlice";
+import {
+  isSetGameAction,
+  startGameAction,
+} from "../../../../Slice/counterSlice";
 
 const Tabs = () => {
   const tabsData = [
@@ -12,12 +15,13 @@ const Tabs = () => {
   ];
 
   const dispatch = useDispatch();
-  const { start, value, countMines } = useSelector((state) => state.counter);
+  const { start } = useSelector((state) => state.counter);
 
   const [activeTab, setActiveTab] = useState(0);
+  const [toggle, settoggle] = useState(false);
 
   const handleChangeTabs = (index) => {
-    dispatch(startGameAction(true));
+    dispatch(isSetGameAction(index));
     setActiveTab(index);
   };
 
@@ -25,7 +29,6 @@ const Tabs = () => {
   return (
     <div className="bg-gray2">
       <div className="max-w-full m-auto w-full custom992:max-w-[360px] ">
-        {/* <div className="max-w-full w-full  bg-gray2 "> */}
         <div className="flex">
           {tabsData?.map((item, index) => (
             <button

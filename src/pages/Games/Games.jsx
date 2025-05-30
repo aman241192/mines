@@ -6,8 +6,7 @@ import Footer from "../../components/Footer/Footer";
 
 const Games = () => {
   const [gameStarted, setGameStarted] = useState(false);
-  const [restartTrigger, setRestartTrigger] = useState(0); // forces MinesGame re-render
-
+  const [restartTrigger, setRestartTrigger] = useState(0);
   const [expand, setExpand] = useState(false);
 
   const handleBetClick = () => {

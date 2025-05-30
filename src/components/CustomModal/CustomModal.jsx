@@ -9,17 +9,6 @@ const CustomModal = ({
   children,
   width = "300px",
 }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
-  const handleOk = () => {
-    setIsModalOpen(false);
-  };
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
-
   const modalStyles = {
     header: {
       borderLeft: `5px solid red`,

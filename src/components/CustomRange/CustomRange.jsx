@@ -33,7 +33,7 @@ const CustomRange = ({ title, countMines, disabled }) => {
         <span className="text-sm text-white w-6 text-center">{value}</span>
         <div className="w-full max-w-[280px]">
           <Slider
-            // disabled={start}
+            disabled={start}
             className="rangeBox"
             value={value}
             onChange={(e) => handleChange(e)}

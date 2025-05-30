@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import CutomText from "../CutomText/CutomText";
-import CustomInput from "../CustomInput/CustomInput";
 
 const OnWin = ({ title }) => {
   const [mode, setMode] = useState("increase");
